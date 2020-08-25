@@ -1,5 +1,8 @@
-package com.example.logproducer;
+package com.example.logproducer.services;
 
+import com.example.logproducer.repositories.StatisticRepository;
+import com.example.logproducer.models.Statistic;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.yandex.clickhouse.ClickHouseConnectionImpl;
@@ -18,6 +21,9 @@ import java.util.Map;
 @Service
 public class LogService {
 
+    @Autowired
+    private StatisticRepository statisticRepository;
+
     @Resource
     @Qualifier("clickhouse_connection")
     private ClickHouseConnectionImpl connection;
@@ -33,7 +39,6 @@ public class LogService {
             while (resultSet.next()) {
                 Map row = new HashMap();
                 for (int i = 1; i <= rsmd.getColumnCount(); i++) {
-
                     row.put(rsmd.getColumnName(i), resultSet.getString(rsmd.getColumnName(i)));
 //                    System.out.println(rsmd.getColumnName(i));
                 }
@@ -46,7 +51,25 @@ public class LogService {
         return null;
     }
 
+//    public List<Statistic> exeStatement(String sql) {
+//        ClickHousePreparedStatement statement = null;
+//        try {
+//            statement = connection.createClickHousePreparedStatement(sql, 1);
+//
+//            ResultSet resultSet = statement.executeQuery();
+//            ResultSetMetaData rsmd = resultSet.getMetaData();
+//            List<Statistic> result = List<Statistic> rsmd
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//        }
+//        return null;
+//    }
+
     public List<Map> getStatistics(){
         return this.exeSQL("SELECT * FROM periodic_summary");
+    }
+
+    public List<Statistic> getStatistic(){
+        return statisticRepository.findAll();
     }
 }

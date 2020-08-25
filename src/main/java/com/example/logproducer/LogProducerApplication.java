@@ -23,7 +23,7 @@ public class LogProducerApplication {
     @Value("${topic.replication-factor}")
     private short replicationFactor;
 
-    @Value("${spring.datasource.url}")
+    @Value("${spring.datasource.third.jdbc-url}")
     private String DB_URL;
 
     public static void main(String[] args) {

@@ -1,5 +1,6 @@
-package com.example.logproducer;
+package com.example.logproducer.kafka;
 
+import com.example.logproducer.models.Log;
 import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

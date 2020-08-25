@@ -1,15 +1,17 @@
-package com.example.logproducer;
+package com.example.logproducer.controllers;
 
+import com.example.logproducer.models.Log;
+import com.example.logproducer.kafka.LogProducer;
+import com.example.logproducer.services.LogService;
+import com.example.logproducer.models.Platform;
+import com.example.logproducer.models.Statistic;
 import lombok.extern.apachecommons.CommonsLog;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/api/v1/logs")
@@ -50,7 +52,7 @@ public class LogController {
     }
 
     @GetMapping("/statistics")
-    List<Map> getStatistics(){
-        return logService.getStatistics();
+    List<Statistic> getStatistics(){
+        return logService.getStatistic();
     }
 }
