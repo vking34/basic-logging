@@ -30,12 +30,6 @@ import java.util.Map;
 @EnableTransactionManagement
 public class JpaThirdConfiguration {
 
-    @Bean(name = "dataSourceThird")
-    @ConfigurationProperties(prefix = "spring.datasource.third")
-    public DataSource dataSourceThird() {
-        return DataSourceBuilder.create().build();
-    }
-
     //The third data source must add Qualifier
     @Autowired
     @Qualifier( "dataSourceThird")
@@ -48,6 +42,15 @@ public class JpaThirdConfiguration {
     //Entity Management Factory builder
     @Autowired
     private EntityManagerFactoryBuilder factoryBuilder;
+
+    @Autowired
+    private HibernateProperties hibernateProperties;
+
+    @Bean(name = "dataSourceThird")
+    @ConfigurationProperties(prefix = "spring.datasource.third")
+    public DataSource dataSourceThird() {
+        return DataSourceBuilder.create().build();
+    }
 
     /**
      * Configure the bean of the second entity management factory
@@ -63,9 +66,6 @@ public class JpaThirdConfiguration {
                 .build();
     }
 
-    @Autowired
-    private HibernateProperties hibernateProperties;
-
     private Map<String, Object> getVendorProperties() {
         Map<String,String> properties= jpaProperties.getProperties();
 
@@ -75,14 +75,17 @@ public class JpaThirdConfiguration {
         properties.put( "hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
         return hibernateProperties.determineHibernateProperties(properties, new HibernateSettings());
     }
+
     /*** EntityManager but explain it, anyone who has used jpa should understand
-     * @return      */
+     * @return
+     */
     @Bean(name = "thirdEntityManager")
     public EntityManager entityManager () {
         return entityManagerFactoryBean()
                 .getObject()
                 .createEntityManager();
     }
+
     /**
      * @return
      */
