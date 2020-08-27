@@ -1,4 +1,4 @@
-package com.example.logproducer.models;
+package com.example.logproducer.models.statistics;
 
 import lombok.*;
 

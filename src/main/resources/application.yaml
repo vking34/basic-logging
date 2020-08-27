@@ -7,6 +7,8 @@ server:
   port: 8000
 
 spring:
+  jackson:
+    property-naming-strategy: SNAKE_CASE
   kafka:
     bootstrap-servers:
       - localhost:9092
@@ -40,15 +42,15 @@ spring:
       jdbc-url: jdbc:clickhouse://localhost:8123/default
       connection-timeout: 20000
       maxium-pool-size: 5
-    type: ru.yandex.clickhouse.ClickHouseDataSource
-    driver-class-name: ru.yandex.clickhouse.ClickHouseDriver
-    url: jdbc:clickhouse://localhost:8123/default
+#    type: ru.yandex.clickhouse.ClickHouseDataSource
+#    driver-class-name: ru.yandex.clickhouse.ClickHouseDriver
+#    url: jdbc:clickhouse://localhost:8123/default
   jpa:
     hibernate:
       naming:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    show-sql: true
+#    show-sql: true
 
 
 

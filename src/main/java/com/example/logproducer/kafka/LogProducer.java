@@ -1,6 +1,6 @@
 package com.example.logproducer.kafka;
 
-import com.example.logproducer.models.Log;
+import com.example.logproducer.controllers.request.LogRequest;
 import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,9 +14,9 @@ public class LogProducer {
     private String TOPIC;
 
     @Autowired
-    private KafkaTemplate<String, Log> kafkaTemplate;
+    private KafkaTemplate<String, LogRequest> kafkaTemplate;
 
-    public void pushLog(Log log){
-        this.kafkaTemplate.send(this.TOPIC, log.getEventName(), log);
+    public void pushLog(LogRequest logRequest){
+        this.kafkaTemplate.send(this.TOPIC, logRequest.getEventName(), logRequest);
     }
 }

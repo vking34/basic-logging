@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>log-producer</artifactId>
+    <artifactId>logRequest-producer</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>log-producer</name>
+    <name>logRequest-producer</name>
     <description>Demo project for logging</description>
 
     <properties>

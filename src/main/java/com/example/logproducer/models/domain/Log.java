@@ -1,26 +1,28 @@
-package com.example.logproducer.models;
+package com.example.logproducer.models.domain;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.EmbeddedId;
+import java.util.Date;
 
 @Getter
 @Setter
 @Accessors(chain = true)
 @NoArgsConstructor
 @Entity
-@Table(name = "periodic_summary")
-public class Statistic {
+@Table(name = "logs")
+public class Log {
 
     @EmbeddedId
-    private StatisticKey statisticKey;
+    @JsonIgnore
+    private LogKey key;
 
     @Column(insertable = false, updatable = false)
     private String event_name;
@@ -28,13 +30,14 @@ public class Statistic {
     @Column(name ="user_id", insertable = false, updatable = false)
     private Integer userId;
 
-    @Column(name ="shop_id", insertable = false, updatable = false)
-    private Integer shopId;
+    @Column(name ="shop_id")
+    private Integer shop_id;
 
     private String platform;
-    private Integer impression;
-    private Integer click;
+    private String city;
+    private String country;
 
     @Column(insertable = false, updatable = false)
-    private String date;
+    private Date time;
+
 }

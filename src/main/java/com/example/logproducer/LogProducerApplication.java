@@ -1,18 +1,19 @@
 package com.example.logproducer;
 
 
+import lombok.extern.apachecommons.CommonsLog;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import ru.yandex.clickhouse.ClickHouseConnection;
 import ru.yandex.clickhouse.ClickHouseConnectionImpl;
 import ru.yandex.clickhouse.ClickHouseDataSource;
 
 import java.sql.SQLException;
 
 @SpringBootApplication
+@CommonsLog(topic = "App")
 public class LogProducerApplication {
     @Value("${topic.name}")
     private String topicName;
@@ -40,4 +41,5 @@ public class LogProducerApplication {
         ClickHouseDataSource dataSource = new ClickHouseDataSource(DB_URL);
         return (ClickHouseConnectionImpl) dataSource.getConnection();
     }
+
 }

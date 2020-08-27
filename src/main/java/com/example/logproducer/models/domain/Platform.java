@@ -1,4 +1,4 @@
-package com.example.logproducer.models;
+package com.example.logproducer.models.domain;
 
 public enum Platform {
     IOS,

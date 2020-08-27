@@ -1,9 +1,14 @@
 package com.example.logproducer.services;
 
+import com.example.logproducer.models.domain.Log;
+import com.example.logproducer.models.statistics.Behavior;
+import com.example.logproducer.repositories.LogRepository;
 import com.example.logproducer.repositories.StatisticRepository;
-import com.example.logproducer.models.Statistic;
+import com.example.logproducer.models.statistics.Statistic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.yandex.clickhouse.ClickHouseConnectionImpl;
 import ru.yandex.clickhouse.ClickHousePreparedStatement;
@@ -24,9 +29,18 @@ public class LogService {
     @Autowired
     private StatisticRepository statisticRepository;
 
+    @Autowired
+    private LogRepository logRepository;
+
     @Resource
     @Qualifier("clickhouse_connection")
     private ClickHouseConnectionImpl connection;
+
+
+    public List<Behavior> getBehaviorsInLastDays(Integer integer){
+        return logRepository.getBehaviorsInLastDays(integer);
+    }
+
 
     public List<Map> exeSQL(String sql) {
         ClickHousePreparedStatement statement = null;
@@ -71,5 +85,9 @@ public class LogService {
 
     public List<Statistic> getStatistic(){
         return statisticRepository.findAll();
+    }
+
+    public Page<Log> getLogs(Pageable pageable){
+        return logRepository.findAll(pageable);
     }
 }
